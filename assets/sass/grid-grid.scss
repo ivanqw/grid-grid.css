@@ -1,0 +1,37 @@
+$breakpoint: (
+  "sm": 576px,
+  "md": 768px,
+  "lg": 992px,
+  "xl": 1200px,
+  "xxl": 1400px
+);
+$colName: "cols";
+//function
+@function variable($value, $default: 1) {
+  @return var(--#{$value}, #{$default});
+}
+//grid
+.grid {
+  $var: variable($colName);
+  display: grid;
+  grid-auto-flow: dense;
+  gap: var(--gap, 1rem);
+  grid-template-columns: repeat($var, 1fr);
+  & & {
+    --#{$colName}: initial;
+    @each $name, $size in $breakpoint {
+      --#{$colName+"-"+$name}: initial;
+    }
+    --gap: initial;
+  }
+  @each $name, $size in $breakpoint {
+    $var: variable(#{$colName + "-" + $name}, #{$var});
+    @media screen and (min-width: #{$size}) {
+      grid-template-columns: repeat($var, 1fr);
+    }
+  }
+  & &__item {
+    grid-column-end: span var(--span-col, auto);
+    grid-row-end: span var(--span-row, auto);
+  }
+}
