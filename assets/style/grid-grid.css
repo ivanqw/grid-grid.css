@@ -1,0 +1,44 @@
+.grid {
+  display: grid;
+  grid-auto-flow: dense;
+  gap: var(--gap, 1rem);
+  grid-template-columns: repeat(var(--cols, 1), 1fr);
+}
+.grid .grid {
+  --cols: initial;
+  --cols-sm: initial;
+  --cols-md: initial;
+  --cols-lg: initial;
+  --cols-xl: initial;
+  --cols-xxl: initial;
+  --gap: initial;
+}
+@media screen and (min-width: 576px) {
+  .grid {
+    grid-template-columns: repeat(var(--cols-sm, var(--cols, 1)), 1fr);
+  }
+}
+@media screen and (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(var(--cols-md, var(--cols-sm, var(--cols, 1))), 1fr);
+  }
+}
+@media screen and (min-width: 992px) {
+  .grid {
+    grid-template-columns: repeat(var(--cols-lg, var(--cols-md, var(--cols-sm, var(--cols, 1)))), 1fr);
+  }
+}
+@media screen and (min-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(var(--cols-xl, var(--cols-lg, var(--cols-md, var(--cols-sm, var(--cols, 1))))), 1fr);
+  }
+}
+@media screen and (min-width: 1400px) {
+  .grid {
+    grid-template-columns: repeat(var(--cols-xxl, var(--cols-xl, var(--cols-lg, var(--cols-md, var(--cols-sm, var(--cols, 1)))))), 1fr);
+  }
+}
+.grid .grid__item {
+  grid-column-end: span var(--span-col, auto);
+  grid-row-end: span var(--span-row, auto);
+}
