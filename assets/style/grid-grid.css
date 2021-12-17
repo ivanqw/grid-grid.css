@@ -5,40 +5,76 @@
   grid-template-columns: repeat(var(--cols, 1), 1fr);
 }
 .grid .grid {
+  /* reset values*/
   --cols: initial;
+  --gap: initial;
   --cols-sm: initial;
   --cols-md: initial;
   --cols-lg: initial;
   --cols-xl: initial;
   --cols-xxl: initial;
-  --gap: initial;
+}
+.grid__item {
+  grid-column-end: span var(--span-col, auto);
+  grid-row-end: span var(--span-row, auto);
+}
+.grid__item .grid__item {
+  /* reset values*/
+  --span-row:initial;
+  --span-col:initial;
+  --span-row-sm: initial;
+  --span-col-sm: initial;
+  --span-row-md: initial;
+  --span-col-md: initial;
+  --span-row-lg: initial;
+  --span-col-lg: initial;
+  --span-row-xl: initial;
+  --span-col-xl: initial;
+  --span-row-xxl: initial;
+  --span-col-xxl: initial;
 }
 @media screen and (min-width: 576px) {
   .grid {
     grid-template-columns: repeat(var(--cols-sm, var(--cols, 1)), 1fr);
+  }
+  .grid .grid__item {
+    grid-column-end: span var(--span-col-sm, var(--span-col, auto));
+    grid-row-end: span var(--span-row-sm, var(--span-row, auto));
   }
 }
 @media screen and (min-width: 768px) {
   .grid {
     grid-template-columns: repeat(var(--cols-md, var(--cols-sm, var(--cols, 1))), 1fr);
   }
+  .grid .grid__item {
+    grid-column-end: span var(--span-col-md, var(--span-col-sm, var(--span-col, auto)));
+    grid-row-end: span var(--span-row-md, var(--span-row-sm, var(--span-row, auto)));
+  }
 }
 @media screen and (min-width: 992px) {
   .grid {
     grid-template-columns: repeat(var(--cols-lg, var(--cols-md, var(--cols-sm, var(--cols, 1)))), 1fr);
+  }
+  .grid .grid__item {
+    grid-column-end: span var(--span-col-lg, var(--span-col-md, var(--span-col-sm, var(--span-col, auto))));
+    grid-row-end: span var(--span-row-lg, var(--span-row-md, var(--span-row-sm, var(--span-row, auto))));
   }
 }
 @media screen and (min-width: 1200px) {
   .grid {
     grid-template-columns: repeat(var(--cols-xl, var(--cols-lg, var(--cols-md, var(--cols-sm, var(--cols, 1))))), 1fr);
   }
+  .grid .grid__item {
+    grid-column-end: span var(--span-col-xl, var(--span-col-lg, var(--span-col-md, var(--span-col-sm, var(--span-col, auto)))));
+    grid-row-end: span var(--span-row-xl, var(--span-row-lg, var(--span-row-md, var(--span-row-sm, var(--span-row, auto)))));
+  }
 }
 @media screen and (min-width: 1400px) {
   .grid {
     grid-template-columns: repeat(var(--cols-xxl, var(--cols-xl, var(--cols-lg, var(--cols-md, var(--cols-sm, var(--cols, 1)))))), 1fr);
   }
-}
-.grid .grid__item {
-  grid-column-end: span var(--span-col, auto);
-  grid-row-end: span var(--span-row, auto);
+  .grid .grid__item {
+    grid-column-end: span var(--span-col-xxl, var(--span-col-xl, var(--span-col-lg, var(--span-col-md, var(--span-col-sm, var(--span-col, auto))))));
+    grid-row-end: span var(--span-row-xxl, var(--span-row-xl, var(--span-row-lg, var(--span-row-md, var(--span-row-sm, var(--span-row, auto))))));
+  }
 }
