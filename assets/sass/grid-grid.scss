@@ -10,28 +10,48 @@ $colName: "cols";
 @function variable($value, $default: 1) {
   @return var(--#{$value}, #{$default});
 }
+$var: variable($colName);
+$var-col: variable("span-col", auto);
+$var-row: variable("span-row", auto);
 //grid
 .grid {
-  $var: variable($colName);
   display: grid;
   grid-auto-flow: dense;
   gap: var(--gap, 1rem);
   grid-template-columns: repeat($var, 1fr);
   & & {
+    /* reset values*/
     --#{$colName}: initial;
+    --gap: initial;
     @each $name, $size in $breakpoint {
       --#{$colName+"-"+$name}: initial;
     }
-    --gap: initial;
+  }
+  &__item{
+    grid-column-end: span $var-col;
+    grid-row-end: span $var-row;  
+  }
+  &__item &__item{
+      /* reset values*/
+      --span-row:initial;
+      --span-col:initial;
+    @each $name, $size in $breakpoint {
+      --span-row#{"-"+$name}: initial;
+      --span-col#{"-"+$name}: initial;
+    }
   }
   @each $name, $size in $breakpoint {
     $var: variable(#{$colName + "-" + $name}, #{$var});
+    $var-col: variable(#{"span-col"+"-" + $name}, #{$var-col});
+    $var-row: variable(#{"span-row"+"-" + $name}, #{$var-row});
+    
     @media screen and (min-width: #{$size}) {
       grid-template-columns: repeat($var, 1fr);
+   
+      & &__item{
+        grid-column-end: span $var-col;
+        grid-row-end: span $var-row;
+      }
     }
-  }
-  & &__item {
-    grid-column-end: span var(--span-col, auto);
-    grid-row-end: span var(--span-row, auto);
   }
 }
